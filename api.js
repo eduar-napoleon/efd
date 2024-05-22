@@ -322,7 +322,7 @@ app.post('/esb', async (req, res) => {
     executablePath: process.env.PUPPETEER_EXECUTABLE_PATH,
     args: ["--enable-features=NetworkService", "--no-sandbox",'--proxy-server=localhost:8082'], 
     ignoreHTTPSErrors: true,
-    headless: false,
+    //headless: false,
     userDataDir: 'data/esb' + md5(user)
   });
   try {

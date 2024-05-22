@@ -94,7 +94,7 @@ async function sync(profile_id, path, query ='') {
 
     form.append('path', directory);
     form.append('filter', fileName);
-    form.append('profile_id', 'app_'+profile_id);
+    form.append('profile_id', profile_id);
     form.append('force', '1');
 
     const url = `http://dev.otm.zeepos.com:7082/file_sync/${profile_id}`;

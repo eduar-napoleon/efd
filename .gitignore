@@ -1,0 +1,9 @@
+node_modules/
+.node-persist/
+cache/
+pyApi/
+*.bin
+*.mp3
+*.png
+*.exe
+*.lock*

@@ -1,0 +1,24 @@
+1. File FDB/GDB
+- WP menyimpan file FDB/GDB di PC mereka contoh config
+	cmd=curl --location 'dev.otm.zeepos.com:7082/file_sync/kalsel-maison-kabbanjar-291106720' --form 'path="\\\\MAISON-PC\\\"Pajak Daerah\""' --form 'filter="*.GDB"' --form 'profile_id=kalsel-maison-kabbanjar' format=Y-m-d
+ext=dlog
+
+2. KasirPintar
+	url : https://kasirpintar.co.id/login
+        contoh akun :
+	larisekulinerjogja@gmail.com		@Merdeka321
+	miebakarcelaket@gmail.com		pintarkasir
+	rchksn8055@gmail.com			aa132001
+	rckstubun8055@gmail.com		aa132001
+
+3. Uniq POS
+	url : https://staging.uniq.id/
+	contoh akun :
+	yptawang@gmail.com			tawang123
+
+4. ESB Lite
+	url : https://poslite.esb.co.id/
+	contoh akun :
+	fara.peppermintbeans@gmail.com	Pebeans-19
+
+itu mas detail akses-nya

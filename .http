@@ -1,0 +1,48 @@
+POST https://efd.marketa.id/kp
+Content-Type: application/json
+
+{
+  "user": "larisekulinerjogja@gmail.com",
+  "pass": "@Merdeka321",
+  "from": "2024-05-19",
+  "to": "2024-05-20"
+}
+###
+POST https://efd.marketa.id/uniq
+Content-Type: application/json
+
+{
+  "user": "yptawang@gmail.com",
+  "pass": "tawang123", 
+  "from": "2024-05-19",
+  "to": "2024-05-20"
+}
+###
+POST https://efd.marketa.id/esb
+Content-Type: application/json
+
+{
+  "user": "fara.peppermintbeans@gmail.com",
+  "pass": "Pebeans-19", 
+  "from": "2023-11-19",
+  "to": "2023-11-20"
+}
+###
+POST https://efd.marketa.id/firebird
+Content-Type: application/json
+
+{
+  "profile_id": "slm-ayamgorengsuharti-new",
+  "path": "C:\\Windows\\System32\\SUHARTIJOGJA2.GDB", 
+  "query": ""
+}
+###
+POST http://localhost:3000/esb
+Content-Type: application/json
+
+{
+  "user": "fara.peppermintbeans@gmail.com",
+  "pass": "Pebeans-19", 
+  "from": "2023-11-19",
+  "to": "2023-11-20"
+}

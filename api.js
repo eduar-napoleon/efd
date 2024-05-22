@@ -72,7 +72,7 @@ app.post('/kp', async (req, res) => {
 
   const browser = await puppeteer.launch({
     executablePath: process.env.PUPPETEER_EXECUTABLE_PATH,
-    args: ["--enable-features=NetworkService", "--no-sandbox"],
+    args: ["--enable-features=NetworkService", "--no-sandbox",'--proxy-server=localhost:8082'], 
     ignoreHTTPSErrors: true,
     // headless: false,
     userDataDir: 'data/kp' + md5(user)

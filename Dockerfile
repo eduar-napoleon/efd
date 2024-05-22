@@ -12,7 +12,7 @@ RUN apk add --no-cache curl && \
 COPY /package*.json ./
 
 # Install dependencies for the Express app
-RUN bun install
+RUN npm install
 
 # Copy the Express app
 COPY . .

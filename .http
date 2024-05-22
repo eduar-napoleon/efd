@@ -1,4 +1,4 @@
-POST https://efd.marketa.id/kp
+POST https://efd.prod.marketa.id/kp
 Content-Type: application/json
 
 {
@@ -8,7 +8,7 @@ Content-Type: application/json
   "to": "2024-05-20"
 }
 ###
-POST https://efd.marketa.id/uniq
+POST https://efd.prod.marketa.id/uniq
 Content-Type: application/json
 
 {
@@ -18,7 +18,7 @@ Content-Type: application/json
   "to": "2024-05-20"
 }
 ###
-POST https://efd.marketa.id/esb
+POST https://efd.prod.marketa.id/esb
 Content-Type: application/json
 
 {
@@ -28,7 +28,7 @@ Content-Type: application/json
   "to": "2023-11-20"
 }
 ###
-POST https://efd.marketa.id/firebird
+POST https://efd.prod.marketa.id/firebird
 Content-Type: application/json
 
 {

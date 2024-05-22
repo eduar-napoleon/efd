@@ -71,9 +71,7 @@ app.post('/kp', async (req, res) => {
   }
 
   const browser = await puppeteer.launch({
-    executablePath: process.pkg ? 
-    path.join(path.dirname(process.execPath), 'puppeteer/.local-chromium') : 
-    puppeteer.executablePath(),
+    executablePath: process.env.PUPPETEER_EXECUTABLE_PATH,
     args: ["--enable-features=NetworkService", "--no-sandbox"],
     ignoreHTTPSErrors: true,
     // headless: false,
@@ -175,9 +173,7 @@ app.post('/uniq', async (req, res) => {
   to = moment(to).unix() * 1000 + 999;
 
   const browser = await puppeteer.launch({
-    executablePath: process.pkg ? 
-    path.join(path.dirname(process.execPath), 'puppeteer/.local-chromium') : 
-    puppeteer.executablePath(),
+    executablePath: process.env.PUPPETEER_EXECUTABLE_PATH,
     args: ["--enable-features=NetworkService", "--no-sandbox",'--proxy-server=localhost:8082'], 
     ignoreHTTPSErrors: true,
     // headless: false,
@@ -323,9 +319,7 @@ app.post('/esb', async (req, res) => {
   }
 
   const browser = await puppeteer.launch({
-    executablePath: process.pkg ? 
-    path.join(path.dirname(process.execPath), 'puppeteer/.local-chromium') : 
-    puppeteer.executablePath(),
+    executablePath: process.env.PUPPETEER_EXECUTABLE_PATH,
     args: ["--enable-features=NetworkService", "--no-sandbox",'--proxy-server=localhost:8082'], 
     ignoreHTTPSErrors: true,
     headless: false,

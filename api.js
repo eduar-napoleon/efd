@@ -70,14 +70,15 @@ app.post('/kp', async (req, res) => {
     return res.status(400).send({ error: 'Missing required fields: user, pass, from, to' });
   }
 
-  const browser = await puppeteer.launch({
-    executablePath: process.env.PUPPETEER_EXECUTABLE_PATH,
-    args: ["--enable-features=NetworkService", "--no-sandbox",'--proxy-server=localhost:8082'], 
-    ignoreHTTPSErrors: true,
-    // headless: false,
-    userDataDir: 'data/kp' + md5(user)
-  });
+  let browser = null;
   try {
+    browser = await puppeteer.launch({
+      executablePath: process.env.PUPPETEER_EXECUTABLE_PATH,
+      args: ["--enable-features=NetworkService", "--no-sandbox",'--proxy-server=localhost:8082'], 
+      ignoreHTTPSErrors: true,
+      // headless: false,
+      userDataDir: 'data/kp' + md5(user)
+    });
     const page = await browser.newPage();
     const cf = md5(user) + '.json';
     if (fs.existsSync(cf)) {
@@ -137,8 +138,7 @@ app.post('/kp', async (req, res) => {
     if (!res.headersSent) {
       res.send({});
     }
-    await browser.close();
-  }
+    if(browser)    await browser.close();  }
 });
 
 app.post('/firebird', async (req, res) => {
@@ -172,14 +172,15 @@ app.post('/uniq', async (req, res) => {
   from = moment(from).unix() * 1000;
   to = moment(to).unix() * 1000 + 999;
 
-  const browser = await puppeteer.launch({
-    executablePath: process.env.PUPPETEER_EXECUTABLE_PATH,
-    args: ["--enable-features=NetworkService", "--no-sandbox",'--proxy-server=localhost:8082'], 
-    ignoreHTTPSErrors: true,
-    // headless: false,
-    userDataDir: 'data/uniq' + md5(user)
-  });
+  let browser = null;
   try {
+    browser = await puppeteer.launch({
+      executablePath: process.env.PUPPETEER_EXECUTABLE_PATH,
+      args: ["--enable-features=NetworkService", "--no-sandbox",'--proxy-server=localhost:8082'], 
+      ignoreHTTPSErrors: true,
+      // headless: false,
+      userDataDir: 'data/uniq' + md5(user)
+    });
     const page = await browser.newPage();
     const cf = 'uniq' + md5(user) + '.json';
     var rld = false;
@@ -307,8 +308,7 @@ app.post('/uniq', async (req, res) => {
     if (!res.headersSent) {
       res.send({});
     }
-    await browser.close();
-  }
+    if(browser)    await browser.close();  }
 });
 
 app.post('/esb', async (req, res) => {
@@ -318,14 +318,15 @@ app.post('/esb', async (req, res) => {
     return res.status(400).send({ error: 'Missing required fields: user, pass, from, to' });
   }
 
-  const browser = await puppeteer.launch({
-    executablePath: process.env.PUPPETEER_EXECUTABLE_PATH,
-    args: ["--enable-features=NetworkService", "--no-sandbox",'--proxy-server=localhost:8082'], 
-    ignoreHTTPSErrors: true,
-    //headless: false,
-    userDataDir: 'data/esb' + md5(user)
-  });
+  let browser = null;
   try {
+    browser = await puppeteer.launch({
+      executablePath: process.env.PUPPETEER_EXECUTABLE_PATH,
+      args: ["--enable-features=NetworkService", "--no-sandbox",'--proxy-server=localhost:8082'], 
+      ignoreHTTPSErrors: true,
+      // headless: false,
+      userDataDir: 'data/esb' + md5(user)
+    });
     const page = await browser.newPage();
     const cf = md5(user) + '.json';
     if (fs.existsSync(cf)) {
@@ -397,8 +398,7 @@ app.post('/esb', async (req, res) => {
     if (!res.headersSent) {
       res.send({});
     }
-    await browser.close();
-  }
+    if(browser)    await browser.close();  }
 });
 
 

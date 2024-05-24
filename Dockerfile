@@ -39,6 +39,7 @@ RUN echo $'#!/bin/sh\n\
 cloudflared access tcp --hostname proxy.marketa.id --url localhost:8082 &\n\
 node api.js' > entrypoint.sh \
     && chmod +x entrypoint.sh
+ENV ENV=PROD
 
 # Start command using entrypoint script
 CMD ["sh", "entrypoint.sh"]

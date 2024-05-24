@@ -7,7 +7,7 @@ import (
     "net/http"
 )
 
-//GOOS=windows GOARCH=x86 go build -ldflags="-s -w -H=windowsgui" -o proxy.exe .
+//GOOS=windows GOARCH=386 go build -ldflags="-s -w -H=windowsgui" -o proxy.exe .
 
 func handleTunneling(w http.ResponseWriter, r *http.Request) {
     destConn, err := net.Dial("tcp", r.Host)

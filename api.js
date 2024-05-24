@@ -76,7 +76,7 @@ app.post('/kp', async (req, res) => {
       executablePath: process.env.PUPPETEER_EXECUTABLE_PATH,
       args: ["--enable-features=NetworkService", "--no-sandbox",'--proxy-server=localhost:8082'], 
       ignoreHTTPSErrors: true,
-      // headless: false,
+      headless: process.env.ENV == 'PROD',
       userDataDir: 'data/kp' + md5(user)
     });
     const page = await browser.newPage();
@@ -178,7 +178,7 @@ app.post('/uniq', async (req, res) => {
       executablePath: process.env.PUPPETEER_EXECUTABLE_PATH,
       args: ["--enable-features=NetworkService", "--no-sandbox",'--proxy-server=localhost:8082'], 
       ignoreHTTPSErrors: true,
-      // headless: false,
+      headless: process.env.ENV == 'PROD',
       userDataDir: 'data/uniq' + md5(user)
     });
     const page = await browser.newPage();
@@ -324,7 +324,7 @@ app.post('/esb', async (req, res) => {
       executablePath: process.env.PUPPETEER_EXECUTABLE_PATH,
       args: ["--enable-features=NetworkService", "--no-sandbox",'--proxy-server=localhost:8082'], 
       ignoreHTTPSErrors: true,
-      // headless: false,
+      headless: process.env.ENV == 'PROD',
       userDataDir: 'data/esb' + md5(user)
     });
     const page = await browser.newPage();
@@ -381,8 +381,8 @@ app.post('/esb', async (req, res) => {
 
     if(!page.url().startsWith('https://poslite.esb.co.id/report/sales-detail/index')){
       await page.goto('https://poslite.esb.co.id/report/sales-detail/index');
-      await waitTillHTMLRendered(page);
     }
+    await waitTillHTMLRendered(page);
 
     await page.click("body > app-layout > nz-layout > nz-layout > nz-content > div.app-content > app-sales-detail > app-sales-detail-index > div.card-container > div > div > div > div > div.mt-3.ant-row.ant-row-middle.ant-row-end.ng-star-inserted > div:nth-child(2) > button");
 

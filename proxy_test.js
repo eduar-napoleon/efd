@@ -3,7 +3,7 @@ const puppeteer = require('puppeteer');
 
 (async () => {
   const browser = await puppeteer.launch({
-    args: ['--proxy-server=localhost:8083']
+    args: ['--proxy-server=localhost:8082']
   });
   const page = await browser.newPage();
   await page.goto('https://www.google.com/');

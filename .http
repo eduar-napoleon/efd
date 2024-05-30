@@ -46,3 +46,25 @@ Content-Type: application/json
   "from": "2023-11-19",
   "to": "2023-11-20"
 }
+###
+POST http://localhost:3000/kp
+Content-Type: application/json
+
+{
+  "user": "larisekulinerjogja@gmail.com",
+  "pass": "@Merdeka321",
+  "from": "2024-05-19",
+  "to": "2024-05-20"
+}
+
+
+###
+POST http://localhost:3000/uniq
+Content-Type: application/json
+
+{
+  "user": "yptawang@gmail.com",
+  "pass": "tawang123", 
+  "from": "2024-05-19",
+  "to": "2024-05-20"
+}

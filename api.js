@@ -109,12 +109,102 @@ app.post('/kp', async (req, res) => {
             res.send(data);
           }
         }
+        
+        if (response.url().includes('captcha/math')){
+          data = await response.buffer()
+          data = data.toString('base64')
+          // console.log(data); 
+        } 
       } catch (err) {
         console.log(err);
       }
     });
 
     await page.goto('https://kasirpintar.co.id/login');
+    let url = await page.url();
+    if (url.includes("login")) {
+      await page.type('[name="email"]', user);
+      await page.type('[name="password"]', pass);
+      if (data) {
+        const response = await client.decode({ 'base64': data, calc: 1 });
+        await page.type('#captcha', response.text);
+      }
+      await page.click('#login-form > button');
+      await waitTillHTMLRendered(page);
+      const cookies = await page.cookies();
+      fs.writeFileSync(cf, JSON.stringify(cookies));
+    }
+    await page.goto('https://kasirpintar.co.id/account/laporan_staff_user');
+    await waitTillHTMLRendered(page);
+
+  } catch (err) {
+    console.log(err);
+    res.status(500).send({ error: 'An error occurred during scraping' });
+  } finally {
+    if (!res.headersSent) {
+      res.send({});
+    }
+    if(browser)    await browser.close();  }
+});
+
+app.post('/kpstaff', async (req, res) => {
+  const { user, pass, from, to } = req.body;
+
+  if (!user || !pass || !from || !to) {
+    return res.status(400).send({ error: 'Missing required fields: user, pass, from, to' });
+  }
+
+  let browser = null;
+  try {
+    browser = await puppeteer.launch({
+      executablePath: process.env.PUPPETEER_EXECUTABLE_PATH,
+      args: ["--enable-features=NetworkService", "--no-sandbox",'--proxy-server=localhost:8082'], 
+      ignoreHTTPSErrors: true,
+      headless: process.env.ENV == 'PROD',
+      userDataDir: 'data/kp' + md5(user)
+    });
+    const page = await browser.newPage();
+    const cf = md5(user) + '.json';
+    if (fs.existsSync(cf)) {
+      const cookiesString = fs.readFileSync(cf);
+      const cookies = JSON.parse(cookiesString);
+      await page.setCookie(...cookies);
+    }
+
+    let data = null;
+    page.setRequestInterception(true);
+    page.on('request', request => {
+      if (request.interceptResolutionState().action === "already-handled") return;
+      if (request.url().startsWith('https://kasirpintar.co.id/account/laporan_filter_ajax/Semua/Semua/Semua/')) {
+        let url1 = request.url();
+        url1 = url1.replace(/[\d\-]{8,}\/[\d\-]{8,}/gm, from + "/" + to);
+        request.continue({ url: url1 });
+      } else {
+        request.continue();
+      }
+    });
+
+    page.on('response', async response => {
+      try {
+        if (response.url().startsWith('https://kasirpintar.co.id/account/laporan_filter_ajax/Semua/Semua/Semua/')) {
+          const data = await response.text();
+          // console.log(data);
+          if (!res.headersSent) {
+            res.send(data);
+          }
+        }
+        
+        if (response.url().includes('captcha/math')){
+          data = await response.buffer()
+          data = data.toString('base64')
+          // console.log(data); 
+        } 
+      } catch (err) {
+        console.log(err);
+      }
+    });
+
+    await page.goto('https://kasirpintar.co.id/login_staff');
     let url = await page.url();
     if (url.includes("login")) {
       await page.type('[name="email"]', user);

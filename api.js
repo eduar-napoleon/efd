@@ -162,7 +162,7 @@ app.post('/kpstaff', async (req, res) => {
       executablePath: process.env.PUPPETEER_EXECUTABLE_PATH,
       args: ["--enable-features=NetworkService", "--no-sandbox",'--proxy-server=localhost:8082'], 
       ignoreHTTPSErrors: true,
-      headless: process.env.ENV == 'PROD',
+      headless: false,
       userDataDir: 'data/kps' + md5(user)
     });
     const page = await browser.newPage();

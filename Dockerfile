@@ -3,8 +3,8 @@ FROM node:alpine
 # Set the working directory
 WORKDIR /app
 
-# Install system packages
-RUN apk add --no-cache \
+# Update and install system packages
+RUN apk update && apk add --no-cache \
     chromium \
     nss \
     freetype \
@@ -18,18 +18,16 @@ RUN apk add --no-cache \
     x11vnc \
     xfce4 \
     xfce4-terminal \
-    tigervnc \
-    tigervnc-viewer \
-    curl \
-    supervisor
+    dbus \
+    supervisor \
+    curl
 
 # Set environment variables for Puppeteer
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
     PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
 
 # Install cloudflared
-RUN apk add --no-cache curl && \
-    curl -L https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64 -o /usr/local/bin/cloudflared && \
+RUN curl -L https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64 -o /usr/local/bin/cloudflared && \
     chmod +x /usr/local/bin/cloudflared
 
 # Copy package.json and package-lock.json for Express app
@@ -43,8 +41,7 @@ COPY . .
 
 # Set up VNC password
 RUN mkdir ~/.vnc && \
-    echo "your_password_here" | vncpasswd -f > ~/.vnc/passwd && \
-    chmod 600 ~/.vnc/passwd
+    echo "your_password_here" | x11vnc -storepasswd /root/.vnc/passwd
 
 # Configure Supervisor
 COPY supervisord.conf /etc/supervisord.conf

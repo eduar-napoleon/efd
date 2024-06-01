@@ -40,8 +40,8 @@ RUN npm install
 COPY . .
 
 # Set up VNC password
-RUN mkdir ~/.vnc && \
-    echo "your_password_here" | x11vnc -storepasswd /app/.vnc/passwd
+RUN mkdir .vnc && \
+    echo "your_password_here" | x11vnc -storepasswd .vnc/passwd
 
 # Configure Supervisor
 COPY supervisord.conf /etc/supervisord.conf

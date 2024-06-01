@@ -12,6 +12,8 @@ const Client = require('@infosimples/node_two_captcha');
 const moment = require('moment');
 const {sync} = require('./fb.js');
 
+const Captcha = require("@2captcha/captcha-solver")
+const solver = new Captcha.Solver("bbfc93ab2d5156f558bed6b37790f2ff")
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -110,7 +112,7 @@ app.post('/kp', async (req, res) => {
           }
         }
         
-        if (response.url().includes('captcha/math')){
+        if (response.url().includes('captcha/')){
           data = await response.buffer()
           data = data.toString('base64')
           // console.log(data); 
@@ -161,10 +163,10 @@ app.post('/kpstaff', async (req, res) => {
       args: ["--enable-features=NetworkService", "--no-sandbox",'--proxy-server=localhost:8082'], 
       ignoreHTTPSErrors: true,
       headless: process.env.ENV == 'PROD',
-      userDataDir: 'data/kp' + md5(user)
+      userDataDir: 'data/kps' + md5(user)
     });
     const page = await browser.newPage();
-    const cf = md5(user) + '.json';
+    const cf = md5(user) + 'kps.json';
     if (fs.existsSync(cf)) {
       const cookiesString = fs.readFileSync(cf);
       const cookies = JSON.parse(cookiesString);
@@ -194,7 +196,7 @@ app.post('/kpstaff', async (req, res) => {
           }
         }
         
-        if (response.url().includes('captcha/math')){
+        if (response.url().includes('captcha/random') && !data){
           data = await response.buffer()
           data = data.toString('base64')
           // console.log(data); 
@@ -207,17 +209,35 @@ app.post('/kpstaff', async (req, res) => {
     await page.goto('https://kasirpintar.co.id/login_staff');
     let url = await page.url();
     if (url.includes("login")) {
-      await page.type('[name="email"]', user);
-      await page.type('[name="password"]', pass);
+
+      await page.type("xpath//html/body/div[4]/section/div/div/div/form/div[1]/input", user);
+      await page.type("xpath//html/body/div[4]/section/div/div/div/form/div[2]/input", pass);
       if (data) {
-        const response = await client.decode({ 'base64': data, calc: 1 });
-        await page.type('#captcha', response.text);
+        const response = await solver.imageCaptcha({
+          body: data, 
+          phrase: false,
+          case: false,
+          numeric: 1,
+          math: true,
+          minLength: 1,
+          maxLength: 6,
+          comment: "calculate this equation"
+        })
+        // const response = await client.decode({ 'base64': data, calc: 1 });
+        console.log("DT:"+response.data);
+        await page.type('xpath//html/body/div[4]/section/div/div/div/form/div[3]/input[1]', response.data);
       }
-      await page.click('#login-form > button');
+    
+      await page.click("#submit")
       await waitTillHTMLRendered(page);
+    }
+
+
+    if (!url.includes("login")) {
       const cookies = await page.cookies();
       fs.writeFileSync(cf, JSON.stringify(cookies));
     }
+
     await page.goto('https://kasirpintar.co.id/account/laporan_staff_user');
     await waitTillHTMLRendered(page);
 

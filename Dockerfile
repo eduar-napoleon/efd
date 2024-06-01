@@ -3,6 +3,7 @@ FROM node:alpine
 # Set the working directory
 WORKDIR /app
 
+# Install system packages
 RUN apk add --no-cache \
     chromium \
     nss \
@@ -12,7 +13,15 @@ RUN apk add --no-cache \
     ca-certificates \
     ttf-freefont \
     nodejs \
-    yarn
+    yarn \
+    xvfb \
+    x11vnc \
+    xfce4 \
+    xfce4-terminal \
+    tigervnc \
+    tigervnc-viewer \
+    curl \
+    supervisor
 
 # Set environment variables for Puppeteer
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
@@ -24,7 +33,7 @@ RUN apk add --no-cache curl && \
     chmod +x /usr/local/bin/cloudflared
 
 # Copy package.json and package-lock.json for Express app
-COPY /package*.json ./
+COPY package*.json ./
 
 # Install dependencies for the Express app
 RUN npm install
@@ -32,14 +41,16 @@ RUN npm install
 # Copy the Express app
 COPY . .
 
-EXPOSE 3000
+# Set up VNC password
+RUN mkdir ~/.vnc && \
+    echo "your_password_here" | vncpasswd -f > ~/.vnc/passwd && \
+    chmod 600 ~/.vnc/passwd
 
-# Add cloudflared command
-RUN echo $'#!/bin/sh\n\
-cloudflared access tcp --hostname proxy.marketa.id --url localhost:8082 &\n\
-node api.js' > entrypoint.sh \
-    && chmod +x entrypoint.sh
-ENV ENV=PROD
+# Configure Supervisor
+COPY supervisord.conf /etc/supervisord.conf
 
-# Start command using entrypoint script
-CMD ["sh", "entrypoint.sh"]
+# Expose VNC port and the Express app port
+EXPOSE 3000 5900
+
+# Start supervisord
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]

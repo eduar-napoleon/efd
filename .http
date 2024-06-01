@@ -8,6 +8,19 @@ Content-Type: application/json
   "to": "2024-05-20"
 }
 ###
+
+POST https://efd.prod.marketa.id/kpstaff
+Content-Type: application/json
+
+{
+  "user": "adminkasirwonosari@gmail.com",
+  "pass": "admin1",
+  "from": "2024-05-26",
+  "to": "2024-05-27"
+}
+
+
+###
 POST https://efd.prod.marketa.id/uniq
 Content-Type: application/json
 
@@ -67,4 +80,16 @@ Content-Type: application/json
   "pass": "tawang123", 
   "from": "2024-05-19",
   "to": "2024-05-20"
+}
+
+###
+
+POST http://localhost:3000/kpstaff
+Content-Type: application/json
+
+{
+  "user": "adminkasirwonosari@gmail.com",
+  "pass": "admin1",
+  "from": "2024-05-26",
+  "to": "2024-05-27"
 }

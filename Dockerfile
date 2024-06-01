@@ -41,7 +41,7 @@ COPY . .
 
 # Set up VNC password
 RUN mkdir ~/.vnc && \
-    echo "your_password_here" | x11vnc -storepasswd /root/.vnc/passwd
+    echo "your_password_here" | x11vnc -storepasswd /app/.vnc/passwd
 
 # Configure Supervisor
 COPY supervisord.conf /etc/supervisord.conf

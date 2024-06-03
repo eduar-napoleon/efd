@@ -3,8 +3,7 @@ FROM node:alpine
 # Set the working directory
 WORKDIR /app
 
-# Update and install system packages
-RUN apk update && apk add --no-cache \
+RUN apk add --no-cache \
     chromium \
     nss \
     freetype \
@@ -13,25 +12,19 @@ RUN apk update && apk add --no-cache \
     ca-certificates \
     ttf-freefont \
     nodejs \
-    yarn \
-    xvfb \
-    x11vnc \
-    xfce4 \
-    xfce4-terminal \
-    dbus \
-    supervisor \
-    curl
+    yarn
 
 # Set environment variables for Puppeteer
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
     PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
 
 # Install cloudflared
-RUN curl -L https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64 -o /usr/local/bin/cloudflared && \
+RUN apk add --no-cache curl && \
+    curl -L https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64 -o /usr/local/bin/cloudflared && \
     chmod +x /usr/local/bin/cloudflared
 
 # Copy package.json and package-lock.json for Express app
-COPY package*.json ./
+COPY /package*.json ./
 
 # Install dependencies for the Express app
 RUN npm install
@@ -39,15 +32,14 @@ RUN npm install
 # Copy the Express app
 COPY . .
 
-# Set up VNC password
-RUN mkdir -p /root/.vnc && \
-    echo "your_password_here" | x11vnc -storepasswd - /root/.vnc/passwd
+EXPOSE 3000
 
-# Configure Supervisor
-COPY supervisord.conf /etc/supervisord.conf
+# Add cloudflared command
+RUN echo $'#!/bin/sh\n\
+cloudflared access tcp --hostname proxy.marketa.id --url localhost:8082 &\n\
+node api.js' > entrypoint.sh \
+    && chmod +x entrypoint.sh
+ENV ENV=PROD
 
-# Expose VNC port and the Express app port
-EXPOSE 3000 5900
-
-# Start supervisord
-CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]
+# Start command using entrypoint script
+CMD ["sh", "entrypoint.sh"]

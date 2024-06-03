@@ -289,7 +289,7 @@ app.post('/uniq', async (req, res) => {
       args: ["--enable-features=NetworkService", "--no-sandbox",'--proxy-server=localhost:8082'], 
       ignoreHTTPSErrors: true,
       headless: process.env.ENV == 'PROD',
-      userDataDir: 'data/uniq' + md5(user)
+      userDataDir: 'data/uniq1' + md5(user)
     });
     const page = await browser.newPage();
     const cf = 'uniq' + md5(user) + '.json';

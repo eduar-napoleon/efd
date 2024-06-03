@@ -107,7 +107,7 @@ async function sync(profile_id, path, query ='') {
     console.log('File sync response:', response.data);
 
     // Call firebirdConnect after file sync
-    const dt = await firebirdConnect(`${profile_id}/${fileName}`, query);
+    const dt = await firebirdConnect(`${profile_id}/${encodeURIComponent(fileName)}`, query);
     if(dt.result)   return dt.result;
     return {
         fetch: response.data,

@@ -90,10 +90,11 @@ async function firebirdConnect(filepath, query) {
 async function sync(profile_id, path, query ='') {
     const form = new FormData();
     const fileName = path.split('\\').pop();
-    const directory = path.substring(0, path.lastIndexOf('\\'));
+    const directory = path.substring(0, path.length-fileName.length);
 
+    
     form.append('path', directory);
-    form.append('filter', fileName);
+    form.append('filter', `'${fileName}'`);
     form.append('profile_id', profile_id);
     form.append('force', '1');
 
@@ -107,7 +108,7 @@ async function sync(profile_id, path, query ='') {
     console.log('File sync response:', response.data);
 
     // Call firebirdConnect after file sync
-    const dt = await firebirdConnect(`${profile_id}/${encodeURIComponent(fileName)}`, query);
+    const dt = await firebirdConnect(`${profile_id}/${fileName}`, query);
     if(dt.result)   return dt.result;
     return {
         fetch: response.data,

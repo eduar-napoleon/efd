@@ -35,6 +35,14 @@ app.use(bodyParser.json());
 
 const sleep = ms => new Promise(res => setTimeout(res, ms));
 
+const log = (err) =>{
+  if (err.response) {
+    console.error("API Error:", err.response.data, "\nStack Trace:", err.stack);
+  } else {
+    console.error("Error:", err.message);
+  }
+}
+
 const waitTillHTMLRendered = async (page, timeout = 30000) => {
   try {
     const checkDurationMsecs = 1000;
@@ -61,7 +69,7 @@ const waitTillHTMLRendered = async (page, timeout = 30000) => {
       await sleep(checkDurationMsecs);
     }
   } catch (err) {
-    console.log(err);
+    log(err);
   }
 };
 
@@ -118,7 +126,7 @@ app.post('/kp', async (req, res) => {
           // console.log(data); 
         } 
       } catch (err) {
-        console.log(err);
+        log(err);
       }
     });
 
@@ -140,7 +148,7 @@ app.post('/kp', async (req, res) => {
     await waitTillHTMLRendered(page);
 
   } catch (err) {
-    console.log(err);
+    log(err);
     res.status(500).send({ error: 'An error occurred during scraping' });
   } finally {
     if (!res.headersSent) {
@@ -202,7 +210,7 @@ app.post('/kpstaff', async (req, res) => {
           // console.log(data); 
         } 
       } catch (err) {
-        console.log(err);
+        log(err);
       }
     });
 
@@ -242,7 +250,7 @@ app.post('/kpstaff', async (req, res) => {
     await waitTillHTMLRendered(page);
 
   } catch (err) {
-    console.log(err);
+    log(err);
     res.status(500).send({ error: 'An error occurred during scraping' });
   } finally {
     if (!res.headersSent) {
@@ -262,7 +270,7 @@ app.post('/firebird', async (req, res) => {
     const result = await sync(profile_id, path, query);
     res.send(result);
   } catch (err) {
-    console.log(err);
+    log(err);
     res.status(500).send({ error: 'An error occurred during scraping' });
   } finally {
     if (!res.headersSent) {
@@ -380,7 +388,7 @@ app.post('/uniq', async (req, res) => {
           request.continue();
         }
       } catch (err) {
-        console.log(err);
+        log(err);
         if (!res.headersSent) {
           res.status(500).send({ error: 'An error occurred during scraping' });
         }
@@ -399,7 +407,7 @@ app.post('/uniq', async (req, res) => {
           }
         }
       } catch (err) {
-        console.log(err);
+        log(err);
       }
     });
     if (trace) console.log("T4:")
@@ -412,7 +420,7 @@ app.post('/uniq', async (req, res) => {
     }
     if (trace) console.log("T5:")
   } catch (err) {
-    console.log(err);
+    log(err);
     res.status(500).send({ error: 'An error occurred during scraping' });
   } finally {
     if (!res.headersSent) {
@@ -471,7 +479,7 @@ app.post('/esb', async (req, res) => {
           request.continue();
         }
       } catch (err) {
-        console.log(err);
+        log(err);
       }
     });
 
@@ -485,7 +493,7 @@ app.post('/esb', async (req, res) => {
           }
         }
       } catch (err) {
-        console.log(err);
+        log(err);
       }
     });
 
@@ -502,7 +510,7 @@ app.post('/esb', async (req, res) => {
       limit = limit-500;
     }
   } catch (err) {
-    console.log(err);
+    log(err);
     res.status(500).send({ error: 'An error occurred during scraping' });
   } finally {
     if (!res.headersSent) {

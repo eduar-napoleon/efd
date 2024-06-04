@@ -4,7 +4,7 @@ FROM node:alpine
 WORKDIR /app
 
 RUN apk add --no-cache \
-    chromium@edge \
+    chromium \
     nss \
     freetype \
     freetype-dev \

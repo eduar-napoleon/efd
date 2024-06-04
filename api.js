@@ -81,13 +81,15 @@ app.post('/kp', async (req, res) => {
   }
 
   let browser = null;
+  let dataDir = 'data/kp' + md5(user);
   try {
+    if(fs.existsSync(dataDir+'/SingletonLock'))  fs.unlinkSync(dataDir+'/SingletonLock');
     browser = await puppeteer.launch({
       executablePath: process.env.PUPPETEER_EXECUTABLE_PATH,
       args: ["--enable-features=NetworkService", "--no-sandbox",'--proxy-server=localhost:8082'], 
       ignoreHTTPSErrors: true,
       headless: process.env.ENV == 'PROD'?'new':false,
-      userDataDir: 'data/kp' + md5(user)
+      userDataDir: dataDir
     });
     const page = await browser.newPage();
     const cf = md5(user) + '.json';
@@ -165,13 +167,15 @@ app.post('/kpstaff', async (req, res) => {
   }
 
   let browser = null;
+  let dataDir = 'data/kps' + md5(user);
   try {
+    if(fs.existsSync(dataDir+'/SingletonLock'))  fs.unlinkSync(dataDir+'/SingletonLock');
     browser = await puppeteer.launch({
       executablePath: process.env.PUPPETEER_EXECUTABLE_PATH,
       args: ["--enable-features=NetworkService", "--no-sandbox",'--proxy-server=localhost:8082'], 
       ignoreHTTPSErrors: true,
-      headless: false,
-      userDataDir: 'data/kps' + md5(user)
+      headless: process.env.ENV == 'PROD'?'new':false,
+      userDataDir: dataDir
     });
     const page = await browser.newPage();
     const cf = md5(user) + 'kps.json';
@@ -291,13 +295,15 @@ app.post('/uniq', async (req, res) => {
   to = moment(to).unix() * 1000 + 999;
 
   let browser = null;
+  let dataDir = 'data/uniq1' + md5(user);
   try {
+    if(fs.existsSync(dataDir+'/SingletonLock'))  fs.unlinkSync(dataDir+'/SingletonLock');
     browser = await puppeteer.launch({
       executablePath: process.env.PUPPETEER_EXECUTABLE_PATH,
       args: ["--enable-features=NetworkService", "--no-sandbox",'--proxy-server=localhost:8082'], 
       ignoreHTTPSErrors: true,
       headless: process.env.ENV == 'PROD'?'new':false,
-      userDataDir: 'data/uniq1' + md5(user)
+      userDataDir: dataDir
     });
     const page = await browser.newPage();
     const cf = 'uniq' + md5(user) + '.json';
@@ -437,13 +443,15 @@ app.post('/esb', async (req, res) => {
   }
 
   let browser = null;
+  let dataDir = 'data/esb' + md5(user);
   try {
+    if(fs.existsSync(dataDir+'/SingletonLock'))  fs.unlinkSync(dataDir+'/SingletonLock');
     browser = await puppeteer.launch({
       executablePath: process.env.PUPPETEER_EXECUTABLE_PATH,
       args: ["--enable-features=NetworkService", "--no-sandbox",'--proxy-server=localhost:8082'], 
       ignoreHTTPSErrors: true,
       headless: process.env.ENV == 'PROD'?'new':false,
-      userDataDir: 'data/esb' + md5(user)
+      userDataDir: dataDir
     });
     const page = await browser.newPage();
     const cf = md5(user) + '.json';

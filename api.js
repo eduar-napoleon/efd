@@ -141,10 +141,10 @@ app.post('/kp', async (req, res) => {
     if (url.includes("login")) {
       await page.type('[name="email"]', user);
       await page.type('[name="password"]', pass);
-      if (data) {
-        const response = await client.decode({ 'base64': data, calc: 1 });
-        await page.type('#captcha', response.text);
-      }
+      // if (data) {
+      //   const response = await client.decode({ 'base64': data, calc: 1 });
+      //   await page.type('#captcha', response.text);
+      // }
       await page.click('#login-form > button');
       await waitTillHTMLRendered(page);
       const cookies = await page.cookies();

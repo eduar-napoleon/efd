@@ -124,7 +124,7 @@ app.post('/kp', async (req, res) => {
           }
         }
         
-        if (response.url().includes('captcha/')){
+        if (response.url().includes('captcha/') && !data){
           data = await response.buffer()
           data = data.toString('base64')
           // console.log(data); 

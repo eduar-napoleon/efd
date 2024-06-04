@@ -86,7 +86,7 @@ app.post('/kp', async (req, res) => {
       executablePath: process.env.PUPPETEER_EXECUTABLE_PATH,
       args: ["--enable-features=NetworkService", "--no-sandbox",'--proxy-server=localhost:8082'], 
       ignoreHTTPSErrors: true,
-      headless: process.env.ENV == 'PROD',
+      headless: process.env.ENV == 'PROD'?'new':false,
       userDataDir: 'data/kp' + md5(user)
     });
     const page = await browser.newPage();
@@ -296,7 +296,7 @@ app.post('/uniq', async (req, res) => {
       executablePath: process.env.PUPPETEER_EXECUTABLE_PATH,
       args: ["--enable-features=NetworkService", "--no-sandbox",'--proxy-server=localhost:8082'], 
       ignoreHTTPSErrors: true,
-      headless: process.env.ENV == 'PROD',
+      headless: process.env.ENV == 'PROD'?'new':false,
       userDataDir: 'data/uniq1' + md5(user)
     });
     const page = await browser.newPage();
@@ -442,7 +442,7 @@ app.post('/esb', async (req, res) => {
       executablePath: process.env.PUPPETEER_EXECUTABLE_PATH,
       args: ["--enable-features=NetworkService", "--no-sandbox",'--proxy-server=localhost:8082'], 
       ignoreHTTPSErrors: true,
-      headless: process.env.ENV == 'PROD',
+      headless: process.env.ENV == 'PROD'?'new':false,
       userDataDir: 'data/esb' + md5(user)
     });
     const page = await browser.newPage();

@@ -84,8 +84,10 @@ app.post('/kp', async (req, res) => {
   let dataDir = 'data/kp' + md5(user);
   try {
     if(fs.existsSync(dataDir+'/SingletonLock'))  fs.unlinkSync(dataDir+'/SingletonLock');
+    if(fs.existsSync(dataDir+'/SingletonCookie'))  fs.unlinkSync(dataDir+'/SingletonCookie');
+    if(fs.existsSync(dataDir+'/SingletonSocket'))  fs.unlinkSync(dataDir+'/SingletonSocket');
 
-    console.log("Data:",dataDir+'/SingletonLock', fs.existsSync(dataDir+'/SingletonLock'))
+    console.log("Data:",dataDir+'/SingletonLock', fs.lstatSync(dataDir))
     browser = await puppeteer.launch({
       executablePath: process.env.PUPPETEER_EXECUTABLE_PATH,
       args: ["--enable-features=NetworkService", "--no-sandbox",'--proxy-server=localhost:8082'], 

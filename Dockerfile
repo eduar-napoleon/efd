@@ -4,7 +4,7 @@ FROM node:alpine
 WORKDIR /app
 
 RUN apk add --no-cache \
-    chromium \
+#    chromium \
     nss \
     freetype \
     freetype-dev \
@@ -15,8 +15,8 @@ RUN apk add --no-cache \
     yarn
 
 # Set environment variables for Puppeteer
-ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
-    PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
+#ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
+#    PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
 
 # Install cloudflared
 RUN apk add --no-cache curl && \

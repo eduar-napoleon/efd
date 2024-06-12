@@ -456,7 +456,7 @@ app.post('/uniq', async (req, res) => {
     if(browser && process.env.ENV == 'PROD')    await browser.close();  }
 });
 
-app.post('/esb', async (req, res) => {
+app.post('/esb1', async (req, res) => {
   const { user, pass, from, to } = req.body;
 
   if (!user || !pass || !from || !to) {

@@ -18,7 +18,14 @@ const solver = new Captcha.Solver("bbfc93ab2d5156f558bed6b37790f2ff")
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-const ls = (path) => fs.existsSync(path)?fs.readdirSync(path).map(file => `${file}`):fs.mkdir(path)
+const ls = (path) => {
+  if(fs.existsSync(path)) {
+    return fs.readdirSync(path).map(file => `${file}`);
+  } else {
+    fs.mkdir(path);
+    return [];
+  }
+}
 
 
 puppeteer.use(StealthPlugin());

@@ -456,7 +456,7 @@ app.post('/uniq', async (req, res) => {
     if(browser && process.env.ENV == 'PROD')    await browser.close();  }
 });
 
-app.post('/esb1', async (req, res) => {
+app.post('/esb', async (req, res) => {
   const { user, pass, from, to } = req.body;
 
   if (!user || !pass || !from || !to) {
@@ -464,7 +464,7 @@ app.post('/esb1', async (req, res) => {
   }
 
   let browser = null;
-  let dataDir = 'data/esb' + md5(user);
+  let dataDir = 'data/esb1' + md5(user);
   try {
     
     console.log(ls(dataDir));

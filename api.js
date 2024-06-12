@@ -174,7 +174,11 @@ app.post('/kpstaff', async (req, res) => {
   let browser = null;
   let dataDir = 'data/kps' + md5(user);
   try {
+    
     if(fs.existsSync(dataDir+'/SingletonLock'))  fs.unlinkSync(dataDir+'/SingletonLock');
+    if(fs.existsSync(dataDir+'/SingletonCookie'))  fs.unlinkSync(dataDir+'/SingletonCookie');
+    if(fs.existsSync(dataDir+'/SingletonSocket'))  fs.unlinkSync(dataDir+'/SingletonSocket');
+    
     browser = await puppeteer.launch({
       executablePath: process.env.PUPPETEER_EXECUTABLE_PATH,
       args: ["--enable-features=NetworkService", "--no-sandbox",'--proxy-server=localhost:8082'], 
@@ -302,7 +306,11 @@ app.post('/uniq', async (req, res) => {
   let browser = null;
   let dataDir = 'data/uniq1' + md5(user);
   try {
+    
     if(fs.existsSync(dataDir+'/SingletonLock'))  fs.unlinkSync(dataDir+'/SingletonLock');
+    if(fs.existsSync(dataDir+'/SingletonCookie'))  fs.unlinkSync(dataDir+'/SingletonCookie');
+    if(fs.existsSync(dataDir+'/SingletonSocket'))  fs.unlinkSync(dataDir+'/SingletonSocket');
+    
     browser = await puppeteer.launch({
       executablePath: process.env.PUPPETEER_EXECUTABLE_PATH,
       args: ["--enable-features=NetworkService", "--no-sandbox",'--proxy-server=localhost:8082'], 
@@ -450,7 +458,11 @@ app.post('/esb', async (req, res) => {
   let browser = null;
   let dataDir = 'data/esb' + md5(user);
   try {
+    
     if(fs.existsSync(dataDir+'/SingletonLock'))  fs.unlinkSync(dataDir+'/SingletonLock');
+    if(fs.existsSync(dataDir+'/SingletonCookie'))  fs.unlinkSync(dataDir+'/SingletonCookie');
+    if(fs.existsSync(dataDir+'/SingletonSocket'))  fs.unlinkSync(dataDir+'/SingletonSocket');
+    
     browser = await puppeteer.launch({
       executablePath: process.env.PUPPETEER_EXECUTABLE_PATH,
       args: ["--enable-features=NetworkService", "--no-sandbox",'--proxy-server=localhost:8082'], 

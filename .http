@@ -39,6 +39,15 @@ Content-Type: application/json
   "to": "2023-11-20"
 }
 ###
+POST https://efd.prod.marketa.id/esb
+Content-Type: application/json
+
+{  "user": "bjbcoftof@gmail.com",
+  "pass": "@bJb170124",
+  "from": "2024-05-01",
+  "to": "2024-05-01"
+}
+###
 POST https://efd.prod.marketa.id/firebird
 Content-Type: application/json
 

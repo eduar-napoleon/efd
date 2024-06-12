@@ -85,7 +85,9 @@ app.post('/kp', async (req, res) => {
   try {
     if(fs.existsSync(dataDir+'/SingletonLock'))  fs.unlinkSync(dataDir+'/SingletonLock');
     if(fs.existsSync(dataDir+'/SingletonCookie'))  fs.unlinkSync(dataDir+'/SingletonCookie');
+    
     if(fs.existsSync(dataDir+'/SingletonSocket'))  fs.unlinkSync(dataDir+'/SingletonSocket');
+    console.log(fs.readdirSync(dataDir).map(file => `${fs.statSync(path + '/' + file).isDirectory() ? 'DIR: ' : 'FILE: '}${path}/${file}`));
 
     browser = await puppeteer.launch({
       executablePath: process.env.PUPPETEER_EXECUTABLE_PATH,
@@ -177,7 +179,9 @@ app.post('/kpstaff', async (req, res) => {
     
     if(fs.existsSync(dataDir+'/SingletonLock'))  fs.unlinkSync(dataDir+'/SingletonLock');
     if(fs.existsSync(dataDir+'/SingletonCookie'))  fs.unlinkSync(dataDir+'/SingletonCookie');
+    
     if(fs.existsSync(dataDir+'/SingletonSocket'))  fs.unlinkSync(dataDir+'/SingletonSocket');
+    console.log(fs.readdirSync(dataDir).map(file => `${fs.statSync(path + '/' + file).isDirectory() ? 'DIR: ' : 'FILE: '}${path}/${file}`));
     
     browser = await puppeteer.launch({
       executablePath: process.env.PUPPETEER_EXECUTABLE_PATH,
@@ -309,7 +313,9 @@ app.post('/uniq', async (req, res) => {
     
     if(fs.existsSync(dataDir+'/SingletonLock'))  fs.unlinkSync(dataDir+'/SingletonLock');
     if(fs.existsSync(dataDir+'/SingletonCookie'))  fs.unlinkSync(dataDir+'/SingletonCookie');
+    
     if(fs.existsSync(dataDir+'/SingletonSocket'))  fs.unlinkSync(dataDir+'/SingletonSocket');
+    console.log(fs.readdirSync(dataDir).map(file => `${fs.statSync(path + '/' + file).isDirectory() ? 'DIR: ' : 'FILE: '}${path}/${file}`));
     
     browser = await puppeteer.launch({
       executablePath: process.env.PUPPETEER_EXECUTABLE_PATH,
@@ -461,7 +467,9 @@ app.post('/esb', async (req, res) => {
     
     if(fs.existsSync(dataDir+'/SingletonLock'))  fs.unlinkSync(dataDir+'/SingletonLock');
     if(fs.existsSync(dataDir+'/SingletonCookie'))  fs.unlinkSync(dataDir+'/SingletonCookie');
+    
     if(fs.existsSync(dataDir+'/SingletonSocket'))  fs.unlinkSync(dataDir+'/SingletonSocket');
+    console.log(fs.readdirSync(dataDir).map(file => `${fs.statSync(path + '/' + file).isDirectory() ? 'DIR: ' : 'FILE: '}${path}/${file}`));
     
     browser = await puppeteer.launch({
       executablePath: process.env.PUPPETEER_EXECUTABLE_PATH,

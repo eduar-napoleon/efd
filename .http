@@ -71,11 +71,10 @@ Content-Type: application/json
 POST http://localhost:3000/esb
 Content-Type: application/json
 
-{
-  "user": "fara.peppermintbeans@gmail.com",
-  "pass": "Pebeans-19", 
-  "from": "2023-11-19",
-  "to": "2023-11-20"
+{  "user": "bjbcoftof@gmail.com",
+  "pass": "@bJb170124",
+  "from": "2024-05-01",
+  "to": "2024-05-01"
 }
 ###
 

@@ -161,7 +161,7 @@ app.post('/kp', async (req, res) => {
     if (!res.headersSent) {
       res.send({});
     }
-    if(browser)    await browser.close();  }
+    if(browser && process.env.ENV == 'PROD')    await browser.close();  }
 });
 
 app.post('/kpstaff', async (req, res) => {
@@ -269,7 +269,7 @@ app.post('/kpstaff', async (req, res) => {
     if (!res.headersSent) {
       res.send({});
     }
-    if(browser)    await browser.close();  }
+    if(browser && process.env.ENV == 'PROD')    await browser.close();  }
 });
 
 app.post('/firebird', async (req, res) => {
@@ -445,7 +445,7 @@ app.post('/uniq', async (req, res) => {
     if (!res.headersSent) {
       res.send({});
     }
-    if(browser)    await browser.close();  }
+    if(browser && process.env.ENV == 'PROD')    await browser.close();  }
 });
 
 app.post('/esb', async (req, res) => {
@@ -542,7 +542,7 @@ app.post('/esb', async (req, res) => {
     if (!res.headersSent) {
       res.send({});
     }
-    if(browser)    await browser.close();  }
+    if(browser && process.env.ENV == 'PROD')    await browser.close();  }
 });
 
 

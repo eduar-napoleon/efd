@@ -18,7 +18,7 @@ const solver = new Captcha.Solver("bbfc93ab2d5156f558bed6b37790f2ff")
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-const ls = (path) => fs.readdirSync(path).map(file => `${fs.statSync(`${path}/${file}`).isDirectory() ? 'DIR: ' : 'FILE: '}${path}/${file}`);
+const ls = (path) => fs.readdirSync(path).map(file => `${file}`);
 
 
 puppeteer.use(StealthPlugin());

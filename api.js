@@ -87,10 +87,9 @@ app.post('/kp', async (req, res) => {
     if(fs.existsSync(dataDir+'/SingletonCookie'))  fs.unlinkSync(dataDir+'/SingletonCookie');
     if(fs.existsSync(dataDir+'/SingletonSocket'))  fs.unlinkSync(dataDir+'/SingletonSocket');
 
-    console.log("Data:",dataDir+'/SingletonLock', fs.lstatSync(dataDir))
     browser = await puppeteer.launch({
       executablePath: process.env.PUPPETEER_EXECUTABLE_PATH,
-      args: ["--enable-features=NetworkService", "--no-sandbox",'--proxy-server=localhost:8082'], 
+      args: ["--enable-features=NetworkService", "--no-sandbox"], 
       ignoreHTTPSErrors: true,
       headless: process.env.ENV == 'PROD'?'new':false,
       userDataDir: dataDir
@@ -136,9 +135,11 @@ app.post('/kp', async (req, res) => {
       }
     });
 
-    await page.goto('https://kasirpintar.co.id/login');
+    await page.goto('https://kasirpintar.co.id/account/laporan_staff_user');
     let url = await page.url();
     if (url.includes("login")) {
+      if(fs.existsSync(dataDir))  fs.unlinkSync(dataDir);
+      if(fs.existsSync(dataDir))  fs.unlinkSync(dataDir);
       await page.type('[name="email"]', user);
       await page.type('[name="password"]', pass);
       // if (data) {
@@ -484,6 +485,7 @@ app.post('/esb', async (req, res) => {
           var url1 = request.url();
           url1 = url1.replace(/startDate=[\d-]+/gm, 'startDate='+from);
           url1 = url1.replace(/endDate=[\d-]+/gm, 'endDate='+to);
+          url1 = url1.replace(/perPage=[\d-]+/gm, 'perPage=2000');
           request.continue({
               url : url1
           });

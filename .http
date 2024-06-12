@@ -49,6 +49,7 @@ Content-Type: application/json
 }
 
 ###
+
 POST http://localhost:3000/firebird
 Content-Type: application/json
 
@@ -68,6 +69,7 @@ Content-Type: application/json
   "to": "2023-11-20"
 }
 ###
+
 POST http://localhost:3000/kp
 Content-Type: application/json
 
@@ -100,3 +102,29 @@ Content-Type: application/json
   "from": "2024-05-26",
   "to": "2024-05-27"
 }
+
+###
+POST https://api.kasirpintar.co.id/api/v3/others/login HTTP/1.1
+Content-Type: application/x-www-form-urlencoded; charset=UTF-8
+User-Agent: Dalvik/2.1.0 (Linux; U; Android 13; Moto X Build/TQ2B.230505.005.A1)
+Host: api.kasirpintar.co.id
+Connection: Keep-Alive
+Accept-Encoding: gzip
+Content-Length: 112
+
+password=Adepok&device_name=Genymobile+Moto+X&os_version=33&device_type=Pro+Android&email=goes2game%40gmail.com&
+###
+GET https://api.kasirpintar.co.id/api/v3/others/get/monthTransaksiLimit/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImdvZXMyZ2FtZUBnbWFpbC5jb20iLCJpYXQiOjE3MTgxMTg3ODcsImlkX3VzZXIiOjE4MDY4MzgsInVpZCI6MTg2OTc4LCJleHAiOjE3MjA3MTA3ODcsImlzcyI6InYzbyJ9.TCQ25WCnT0c9PVKI62hzPqfh3K5h0L0pgGdPvSIxquU/2024-06/0/2000 HTTP/1.1
+Host: api.kasirpintar.co.id
+Connection: Keep-Alive
+Accept-Encoding: gzip
+User-Agent: okhttp/4.11.0
+
+###
+GET https://api.kasirpintar.co.id/api/v3/others/get/allTransaksiLimit/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImdvZXMyZ2FtZUBnbWFpbC5jb20iLCJpYXQiOjE3MTgxMTk0MjAsImlkX3VzZXIiOjE4MDY4MzgsInVpZCI6MTg2OTc4LCJleHAiOjE3MjA3MTE0MjAsImlzcyI6InYzbyJ9.UjSUs76wMFbMUVoTwsiGetGBXdtDT5PExOgvDZaOWTA/0/2000 HTTP/1.1
+Host: api.kasirpintar.co.id
+Connection: Keep-Alive
+Accept-Encoding: gzip
+User-Agent: okhttp/4.11.0
+
+

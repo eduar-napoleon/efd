@@ -22,7 +22,7 @@ const ls = (path) => {
   if(fs.existsSync(path)) {
     return fs.readdirSync(path).map(file => `${file}`);
   } else {
-    fs.mkdir(path);
+    fs.mkdirSync(path);
     return [];
   }
 }
